@@ -15,7 +15,6 @@
                 Console.WriteLine("3. Withdraw Cash");
                 Console.WriteLine("4. Transfer Money");
 
-                // Read the user's choice
                 string input = Console.ReadLine();
                 int choice = Convert.ToInt32(input);
 
