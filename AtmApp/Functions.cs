@@ -19,9 +19,42 @@ namespace AtmApp
 
         public void checkBalance()
         {
-            Console.WriteLine("Your account balance is: {0}", accountBalance);
-            Console.WriteLine("Press Enter key to return to the home page");
-            Console.ReadKey();
+            int condition = 0;
+            int trys = 2;
+
+
+            try
+            {
+                while (condition < 3)
+                {
+                    Console.Write("Enter your account pin: ");
+                    string pin = Console.ReadLine();
+                    int pin2 = Convert.ToInt32(pin);
+                    if (pin2 == accountPin)
+                    {
+                        Console.WriteLine("Your account balance is: {0}", accountBalance);
+                        Console.WriteLine("Press Enter key to return to the home page");
+                        Console.ReadKey();
+
+                        break;
+                    }
+                    else
+                    {
+                        if (condition == 2)
+                        {
+                            Console.WriteLine("Too many Invalid attempts.....");
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid Pin.......Re-enter PIN.......You have {0} more trys", trys--);
+                            condition++;
+                        }
+                    }
+                } 
+            } catch (Exception e) {
+                Console.WriteLine(e.Message);
+            }
         }
 
         public void depositFunds()
@@ -30,11 +63,30 @@ namespace AtmApp
             string inputAmount = Console.ReadLine();
             int depositAmount = Convert.ToInt32(inputAmount);
 
-            accountBalance += depositAmount;
+            Console.WriteLine("Are you sure you want to make this deposit : Y / N");
+            string confirm = Console.ReadLine();
 
-            Console.WriteLine("Your new balance is: {0}", accountBalance);
-            Console.WriteLine("Press Enter key to return to the home page");
-            Console.ReadKey();
+            try
+            {
+                if (confirm.ToLower() == "y")
+                {
+                    accountBalance += depositAmount;
+
+                    Console.WriteLine("Your new balance is: {0}", accountBalance);
+                    Console.WriteLine("Press Enter key to return to the home page");
+                    Console.ReadKey();
+                }
+                else if (confirm.ToLower() == "n")
+                {
+                    Console.WriteLine("Your deposit has been cancelled");
+                    Console.WriteLine("Press Enter key to return to the home page");
+                    Console.ReadKey();
+                }
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
         }
 
         public void withdraw()
@@ -45,35 +97,49 @@ namespace AtmApp
             int condition = 0;
             int trys = 2;
 
-
-            while(condition < 3)
+            try
             {
-                Console.Write("Enter your account pin: ");
-                string pin = Console.ReadLine();
-                int pin2 = Convert.ToInt16(pin);
-                if (pin2 == accountPin)
+                while(condition < 3)
                 {
-                    accountBalance -= withdrawAmount;
-                    Console.WriteLine("Your new balance is: {0}", accountBalance);
-                    Console.WriteLine("Press Enter key to return to the home page");
-                    Console.ReadKey();
-                    break;
-                }
-                else
-                {
-                    if (condition == 2)
+                    Console.Write("Enter your account pin: ");
+                    string pin = Console.ReadLine();
+                    int pin2 = Convert.ToInt16(pin);
+                    if (pin2 == accountPin)
                     {
-                        Console.WriteLine("Too many Invalid attempts.....");
-                        Console.WriteLine("Withdrawal Failed Thieffffffffff.....");
-                        break;
-                    } 
+                        if (accountBalance < withdrawAmount)
+                        {
+                            Console.WriteLine("Insufficient Funds");
+                            break;
+                        } else
+                        {
+                            accountBalance -= withdrawAmount;
+                            Console.WriteLine("Your new balance is: {0}", accountBalance);
+                            Console.WriteLine("Press Enter key to return to the home page");
+                            Console.ReadKey();
+                            break;
+                        }
+                    }
                     else
                     {
-                        Console.WriteLine("Invalid Pin.......Re-enter PIN.......You have {0} more trys", trys--);
-                        condition++;
+                        if (condition == 2)
+                        {
+                            Console.WriteLine("Too many Invalid attempts.....");
+                            Console.WriteLine("Withdrawal Failed Thieffffffffff.....");
+                            break;
+                        } 
+                        else
+                        {
+                            Console.WriteLine("Invalid Pin.......Re-enter PIN.......You have {0} more trys", trys--);
+                            condition++;
+                        }
                     }
                 }
+
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
+
 
         }
     }
