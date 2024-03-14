@@ -6,36 +6,10 @@
         {
             Functions fun = new Functions();
 
-            bool condition = true;
+            Atm atm = fun.Start;
 
-            while(condition)
-            {
-                Console.WriteLine("1. Check account Balance");
-                Console.WriteLine("2. Deposit Funds");
-                Console.WriteLine("3. Withdraw Cash");
-                Console.WriteLine("4. Transfer Money");
+            atm(20000, 1234);
 
-                string input = Console.ReadLine();
-                int choice = Convert.ToInt32(input);
-
-                switch (choice)
-                {
-                    case 1:
-                        fun.checkBalance();
-                        break;
-                    case 2:
-                        fun.depositFunds();
-                        break;
-                    case 3:
-                        fun.withdraw();
-                        break;
-                    case 4:
-                        Console.WriteLine("STILL UNDER CONSTRUCTION...........");
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice");
-                        break;
-                }
-            }
+            /*fun.Start();*/
         }
 }   }
